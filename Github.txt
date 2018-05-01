@@ -1,0 +1,97 @@
+from sense_hat import SenseHat, ACTION_PRESSED, ACTION_HELD, ACTION_RELEASED
+s = SenseHat()
+b = (000,000,255)
+r = (255,000,000)
+y = (255,255,000)
+g = (121,148,111)
+p = (255,000,220)
+
+frame1 = [
+r, b, b, y, r, b, b, r,
+b, r, b, b, r, y, r, b,
+r, b, b, r, y, r, b, b,
+b, r, r, b, b, y, b, r,
+r, b, r, y, r, r, b, r,
+r, b, r, r, b, r, r, b,
+r, y, b, r, y, r, b, r,
+r, b, y, b, r, b, y, r
+]
+
+frame2 = [
+b, r, y, r, y, b, y, r,
+r, y, y, b, r, b, y, r,
+b, y, r, y, b, r, y, b,
+y, r, b, r, y, b, y, r,
+r, r, y, b, y, y, r, r,
+y, b, y, r, b, r, b, y,
+y, b, y, r, y, r, r, b,
+b, y, r, b, r, y, b, y
+]
+
+frame3 = [
+r, p, b, y, r, b, b, r,
+b, r, y, b, r, y, r, g,
+r, p, b, r, y, r, y, b,
+b, r, r, g, b, y, b, r,
+r, b, r, y, r, r, b, r,
+r, y, r, r, b, r, g, b,
+r, y, g, r, p, r, b, r,
+r, b, y, b, r, p, y, r
+]
+
+frame4 = [
+g, b, b, g, r, r, b, r,
+b, r, b, b, r, p, r, b,
+y, p, p, r, y, r, b, b,
+r, r, r, g, b, g, b, g,
+r, b, p, y, r, r, p, b,
+p, b, r, r, b, g, r, y,
+y, y, y, p, y, r, b, r,
+g, b, y, b, r, p, y, p
+]
+
+
+def downMenu(event):
+  s.clear()
+  if event.action == ACTION_PRESSED:
+    s.set_pixels(frame1)
+    
+def upMenu(event):
+  s.clear()
+  if event.action == ACTION_PRESSED:
+    s.set_pixels(frame2)
+
+def leftMenu(event):
+  s.clear()
+  if event.action == ACTION_PRESSED:
+    s.set_pixels(frame3)
+    
+def rightMenu(event):
+  s.clear()
+  if event.action == ACTION_PRESSED:
+    s.set_pixels(frame4)
+
+s.stick.direction_up = upMenu
+s.stick.direction_down = downMenu
+s.stick.direction_right = rightMenu
+s.stick.direction_left = leftMenu
+  
+from sense_hat import SenseHat
+sense = SenseHat()
+sense.clear()
+
+o = sense.get_orientation()
+pitch = o["pitch"]
+roll = o["roll"]
+yaw = o["yaw"]
+print("pitch = {0} roll = {1} yaw = {2}".format(pitch, roll, yaw))
+
+if pitch > 300:
+  s.set_pixels(frame1)
+elif pitch < 300:
+  s.set_pixels(frame2)
+else:
+  s.set_pixels(frame3)
+
+while True:
+  pass
